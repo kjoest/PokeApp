@@ -31,7 +31,7 @@ const resetBody = () => {
 let pokemon = {
     fetchPokemon: function (name) {
         fetch(
-            "https://pokeapi.co/api/v2/pokemon/" + name,
+            "https://pokeapi.co/api/v2/pokemon/" + name
             /*"https://pokeapi.co/api/v2/type/" + id*/
         )
             .then((response) => response.json())
