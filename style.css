@@ -1,0 +1,161 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
+    background-color: #36383C;
+}
+
+.card {
+    background-color: #000000d0;
+    color: white;
+    border-radius: 30px;
+    width: 100%;
+    max-width: 420px;
+    margin: 1em;
+    padding: 2em;
+    border: none;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+::placeholder {
+    color: white;
+}
+
+input.search-bar {
+    border: 1px solid black;;
+    border-radius: 35px;
+    outline: none;
+    height: 35px;
+    width: 100%;
+    padding: 0.4em 1em;
+    background-color: #7c7c7c2b;
+    color: white;
+    font-family: inherit;
+    font-size: 105%;
+}
+
+button {
+    margin: 0.5em;
+    border-radius: 50%;
+    border: 1px solid black;
+    height: 35px;
+    width:35px;
+    outline: none;
+    background-color: #7c7c7c2b;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+button:hover {
+    background: #7c7c7c6b;
+}
+
+.flex {
+    margin: 0;
+    margin-bottom: 0.5;
+}
+
+.pokemon.loading {
+    position: relative;
+}
+
+h1 {
+    text-transform: capitalize;
+}
+
+.poke-first-type {
+    text-transform: capitalize;
+}
+
+.poke-second-type {
+    text-transform: capitalize;
+}
+
+
+
+
+
+/* Types */
+
+.normal {
+    background: #BABAAE;
+  }
+  
+  .fighting {
+    background: #A75543;
+  }
+  
+  .flying {
+    background: #78A2FF;
+  }
+  
+  .poison {
+    background: #A95CA0;
+  }
+  
+  .ground {
+    background: #EECC55;
+  }
+  
+  .rock {
+    background: #CCBD72;
+  }
+  
+  .bug {
+    background: #C2D21E;
+  }
+  
+  .ghost {
+    background: #7975D7;
+  }
+  
+  .steel {
+    background: #C4C2DB;
+  }
+  
+  .fire {
+    background: #FA5643;
+  }
+  
+  .water {
+    background: #56ADFF;
+  }
+  
+  .grass {
+    background: #8CD750;
+  }
+  
+  .electric {
+    background: #FDE139;
+  }
+  
+  .psychic {
+    background: #FA65B4;
+  }
+  
+  .ice {
+    background: #96F1FF;
+  }
+  
+  .dragon {
+    background: #8673FF;
+  }
+  
+  .dark {
+    background: #8D6855;
+  }
+  
+  .fairy {
+    background: #F9AEFF;
+  }
+
