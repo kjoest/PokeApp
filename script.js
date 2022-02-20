@@ -5,6 +5,7 @@ const pokeTypeTwo = document.querySelector(".poke-second-type");
 const superEffective = document.querySelector(".super-effective");
 const weakAgainst = document.querySelector(".weak-against");
 
+
 const TYPES = [
     'normal', 'fighting', 'flying',
     'poison', 'ground', 'rock',
@@ -29,10 +30,9 @@ const resetBody = () => {
 }
 
 let pokemon = {
-    fetchPokemon: function (name) {
+    fetchPokemon: function (name, type) {
         fetch(
-            "https://pokeapi.co/api/v2/pokemon/" + name
-            /*"https://pokeapi.co/api/v2/type/" + id*/
+            "https://pokeapi.co/api/v2/" + "pokemon/" + name.toLowerCase()
         )
             .then((response) => response.json())
             .then((data) => this.displayPokemon(data));
