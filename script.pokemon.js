@@ -2,8 +2,6 @@ const mainCard = document.querySelector('.card');
 const mainBody = document.querySelector('body');
 const pokeTypeOne = document.querySelector(".poke-first-type");
 const pokeTypeTwo = document.querySelector(".poke-second-type");
-const superEffective = document.querySelector(".super-effective");
-const weakAgainst = document.querySelector(".weak-against");
 
 
 const TYPES = [
@@ -30,7 +28,7 @@ const resetBody = () => {
 }
 
 let pokemon = {
-    fetchPokemon: function (name, type) {
+    fetchPokemon: function (name, id) {
         fetch(
             "https://pokeapi.co/api/v2/" + "pokemon/" + name.toLowerCase()
         )
@@ -58,9 +56,12 @@ let pokemon = {
             pokeTypeTwo.textContent = '';
         }
 
+        console.log(dataFirstType);
+
         /*const dataSuperEffective = data['damage_relations'];
-        const firstDamage = dataSuperEffective[0];
-        superEffective.textContent = firstDamage['double_damage_to']['name'];*/
+        const dataFirstDamage = dataSuperEffective[0];
+        const dataSecondDamage = dataSuperEffective[1];
+        superEffective.textContent = dataFirstDamage['double_damage_from']['name'];*/
 
         mainCard.classList.add(dataFirstType['type']['name']);
 
@@ -81,8 +82,6 @@ let pokemon = {
         this.fetchPokemon(document.querySelector(".search-bar").value);
     }
 };
-
-
 
 document
     .querySelector(".search button")
