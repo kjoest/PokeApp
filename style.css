@@ -20,10 +20,11 @@ body {
     border: none;
 }
 
-@media screen and (max-width: 580px)  {
-    .card {
-      height: 100%;
-    }
+@media screen and(max-width: 580px) {
+  .icon {
+    height: 2px;
+    width: 2px;
+  }
 }
 
 .search {

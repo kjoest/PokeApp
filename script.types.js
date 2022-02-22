@@ -11,11 +11,29 @@ let pokemonId = {
             .then((data) => this.displayType(data));
     },
     displayType: function (data) {
-        const dataTypes = data['damage_relations']['double_damage_to'];
+        const dataTypes = data['damage_relations']['double_damage_from'];
         const dataFirstType = dataTypes[0];
         const dataSecondType = dataTypes[1];
-        strongAgainst.textContext = dataFirstType['name'];
+        weakAgainst.textContext = dataFirstType;
+        weakAgainst.textContent= dataSecondType['name'];
         console.log(dataFirstType);
+    },
+
+    search: function () {
+        this.fetchPokemon(document.querySelector(".search-bar").value)
     }
 };
 
+document
+    .querySelector(".search button")
+    .addEventListener("click", function () {
+        pokemonId.search();
+    });
+
+document
+    .querySelector(".search-bar")
+    .addEventListener("keyup", function (event) {
+        if (event.key == "Enter") {
+            pokemonId.search();
+        }
+    });

@@ -3,7 +3,6 @@ const mainBody = document.querySelector('body');
 const pokeTypeOne = document.querySelector(".poke-first-type");
 const pokeTypeTwo = document.querySelector(".poke-second-type");
 
-
 const TYPES = [
     'normal', 'fighting', 'flying',
     'poison', 'ground', 'rock',
@@ -44,7 +43,6 @@ let pokemon = {
         const { id } = data;
         const { height } = data;
         const { weight } = data;
-
         const dataTypes = data['types'];
         const dataFirstType = dataTypes[0];
         const dataSecondType = dataTypes[1];
@@ -71,7 +69,6 @@ let pokemon = {
 
         document.querySelector(".icon").src =
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
-
         document.querySelector(".poke-name").innerText = name;
         document.querySelector(".poke-id").innerText = "ID: " + id;
         document.querySelector(".poke-height").innerText = "Height: " + height;
