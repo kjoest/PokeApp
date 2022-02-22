@@ -1,4 +1,4 @@
-const strongAgainst = document.querySelector(".strong-against");
+/*const strongAgainst = document.querySelector(".strong-against");
 const weakAgainst = document.querySelector(".weak-against");
 
 
@@ -36,4 +36,4 @@ document
         if (event.key == "Enter") {
             pokemonId.search();
         }
-    });
+    });*/

@@ -2,6 +2,8 @@ const mainCard = document.querySelector('.card');
 const mainBody = document.querySelector('body');
 const pokeTypeOne = document.querySelector(".poke-first-type");
 const pokeTypeTwo = document.querySelector(".poke-second-type");
+const strongAgainst = document.querySelector(".strong-against");
+const weakAgainst = document.querySelector(".weak-against");
 
 const TYPES = [
     'normal', 'fighting', 'flying',
@@ -28,11 +30,10 @@ const resetBody = () => {
 
 let pokemon = {
     fetchPokemon: function (name, id) {
-        fetch(
-            "https://pokeapi.co/api/v2/" + "pokemon/" + name.toLowerCase()
-        )
-            .then((response) => response.json())
-            .then((data) => this.displayPokemon(data));
+        Promise.all([
+            fetch("https://pokeapi.co/api/v2/" + "pokemon/" + name.toLowerCase()).then((response) => response.json()).then((data) => this.displayPokemon(data))
+            /*fetch("https://pokeapi.co/api/v2/" + "type/1").then((response) => response.json()).then((data) => this.displayPokemon(data)),*/
+        ]);
     },
     displayPokemon: function (data) {
 
@@ -56,11 +57,6 @@ let pokemon = {
 
         console.log(dataFirstType);
 
-        /*const dataSuperEffective = data['damage_relations'];
-        const dataFirstDamage = dataSuperEffective[0];
-        const dataSecondDamage = dataSuperEffective[1];
-        superEffective.textContent = dataFirstDamage['double_damage_from']['name'];*/
-
         mainCard.classList.add(dataFirstType['type']['name']);
 
         if (dataSecondType) {
@@ -74,6 +70,14 @@ let pokemon = {
         document.querySelector(".poke-height").innerText = "Height: " + height;
         document.querySelector(".poke-weight").innerText = "Weight: " + weight;
     },
+    /*displayPokemonTypes: function(data) {
+        const dataDamageTypes = data['damage_relations']['double_damage_to'];
+        const dataFirstDamageType = dataDamageTypes[0];
+        const dataSecondDamageType = dataDamageTypes[1];
+        strongAgainst.textContent = dataFirstDamageType['name'];
+        weakAgainst.textContext = dataDamageTypes['name'];
+        console.log(dataFirstDamageType);
+    },*/
 
     search: function () {
         this.fetchPokemon(document.querySelector(".search-bar").value);
@@ -94,4 +98,4 @@ document
         }
     });
 
-pokemon.fetchPokemon("pikachu");
+pokemon.fetchPokemon("10095");
