@@ -55,72 +55,10 @@ let pokemon = {
         ]);
     },
 
-    // displayPokemon: async function (data) {
-    //     resetCard();
-    //     resetBody();
-
-    //     const { name } = data;
-    //     const { id } = data;
-    //     const { height } = data;
-    //     const { weight } = data;
-    //     const dataTypes = data['types'];
-    //     const dataFirstType = dataTypes[0];
-    //     const dataSecondType = dataTypes[1];
-    //     pokeTypeOne.textContent = dataFirstType['type']['name'];
-
-    //     if (dataSecondType) {
-    //         pokeTypeTwo.textContent = dataSecondType['type']['name'];
-    //     } else {
-    //         pokeTypeTwo.textContent = '';
-    //     }
-
-    //     console.log(dataFirstType);
-
-    //     mainCard.classList.add(dataFirstType['type']['name']);
-
-    //     if (dataSecondType) {
-    //         mainBody.classList.add(dataSecondType['type']['name']);
-    //     }
-
-    //     document.querySelector(".icon").src =
-    //         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
-    //     document.querySelector(".poke-name").innerText = name;
-    //     document.querySelector(".poke-id").innerText = "ID: " + id;
-    //     document.querySelector(".poke-height").innerText = "Height: " + height;
-    //     document.querySelector(".poke-weight").innerText = "Weight: " + weight;
-
-    // // Fetch and display weaknesses and strengths
-    // const type1Details = await fetchTypeDetails(dataFirstType['type']['name']);
-    // const type1Weaknesses = type1Details.damage_relations.double_damage_from.map(type => type.name);
-    // const type1Strengths = type1Details.damage_relations.double_damage_to.map(type => type.name);
-
-    // let type2Weaknesses = [];
-    // let type2Strengths = [];
-
-    // if (dataSecondType) {
-    //     const type2Details = await fetchTypeDetails(dataSecondType['type']['name']);
-    //     type2Weaknesses = type2Details.damage_relations.double_damage_from.map(type => type.name);
-    //     type2Strengths = type2Details.damage_relations.double_damage_to.map(type => type.name);
-    // }
-
-    // const allWeaknesses = [...new Set([...type1Weaknesses, ...type2Weaknesses])];
-    // const allStrengths = [...new Set([...type1Strengths, ...type2Strengths])];
-
-    // // Update HTML with weaknesses and strengths
-    // weakAgainst.textContent = `Weak Against: ${allWeaknesses.join(', ')}`;
-    // strongAgainst.textContent = `Strong Against: ${allStrengths.join(', ')}`;
-
-    // // Show the card after updating details
-    // mainCard.classList.remove('hide');
-    // },
-
-    // Function to convert height from decimetres to feet
-// Function to convert height from decimetres to feet
-
     displayPokemon: async function (data) {
         resetCard();
         resetBody();
-    
+
         const { name } = data;
         const { id } = data;
         const { height } = data;
@@ -129,49 +67,49 @@ let pokemon = {
         const dataFirstType = dataTypes[0];
         const dataSecondType = dataTypes[1];
         pokeTypeOne.textContent = dataFirstType['type']['name'];
-    
+
         if (dataSecondType) {
             pokeTypeTwo.textContent = dataSecondType['type']['name'];
         } else {
             pokeTypeTwo.textContent = '';
         }
-    
+
         console.log(dataFirstType);
-    
+
         mainCard.classList.add(dataFirstType['type']['name']);
-    
+
         if (dataSecondType) {
             mainBody.classList.add(dataSecondType['type']['name']);
         }
-    
+
         document.querySelector(".icon").src =
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
         document.querySelector(".poke-name").innerText = name;
         document.querySelector(".poke-id").innerText = "ID: " + id;
         document.querySelector(".poke-height").innerText = "Height: " + convertHeightToFeet(height) + " Ft";
         document.querySelector(".poke-weight").innerText = "Weight: " + convertWeightToPounds(weight) + " lbs";
-    
+
         // Fetch and display weaknesses and strengths
         const type1Details = await fetchTypeDetails(dataFirstType['type']['name']);
         const type1Weaknesses = type1Details.damage_relations.double_damage_from.map(type => type.name);
         const type1Strengths = type1Details.damage_relations.double_damage_to.map(type => type.name);
-    
+
         let type2Weaknesses = [];
         let type2Strengths = [];
-    
+
         if (dataSecondType) {
             const type2Details = await fetchTypeDetails(dataSecondType['type']['name']);
             type2Weaknesses = type2Details.damage_relations.double_damage_from.map(type => type.name);
             type2Strengths = type2Details.damage_relations.double_damage_to.map(type => type.name);
         }
-    
+
         const allWeaknesses = [...new Set([...type1Weaknesses, ...type2Weaknesses])];
         const allStrengths = [...new Set([...type1Strengths, ...type2Strengths])];
-    
+
         // Update HTML with weaknesses and strengths
         weakAgainst.textContent = `Weak Against: ${allWeaknesses.join(', ')}`;
         strongAgainst.textContent = `Strong Against: ${allStrengths.join(', ')}`;
-    
+
         // Show the card after updating details
         mainCard.classList.remove('hide');
     },
