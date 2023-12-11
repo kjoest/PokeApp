@@ -44,7 +44,6 @@ let pokemon = {
     },
 
     displayPokemon: async function (data) {
-
         resetCard();
         resetBody();
 
@@ -101,7 +100,6 @@ let pokemon = {
 
     // Show the card after updating details
     mainCard.classList.remove('hide');
-
     },
 
     search: function () {
@@ -113,6 +111,7 @@ document
     .querySelector(".search button")
     .addEventListener("click", function () {
         pokemon.search();
+        document.querySelector(".search-bar").value = "";
     });
 
 document
@@ -120,6 +119,7 @@ document
     .addEventListener("keyup", function (event) {
         if (event.key == "Enter") {
             pokemon.search();
+            this.value = "";
         }
     });
 
