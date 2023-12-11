@@ -48,11 +48,51 @@ function convertWeightToPounds(weight) {
     return pounds.toFixed(2);
 }
 
+async function fetchEvolutionChain(id) {
+    const apiUrl = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const evolutionChainUrl = data.evolution_chain.url;
+
+    const evolutionChainResponse = await fetch(evolutionChainUrl);
+    const evolutionChainData = await evolutionChainResponse.json();
+
+    return evolutionChainData;
+}
+
+// Function to get evolution details
+async function getEvolutionDetails(evolutionChainData, pokemonName) {
+    const chain = evolutionChainData.chain;
+
+    let evolvesTo = chain.evolves_to;
+    let evolutionDetails = null;
+
+    while (evolvesTo.length > 0) {
+        const evolution = evolvesTo[0];
+        if (evolution.species.name === pokemonName) {
+            evolutionDetails = evolution.evolution_details[0];
+            break;
+        }
+        evolvesTo = evolution.evolves_to;
+    }
+
+    return evolutionDetails;
+}
+
 let pokemon = {
     fetchPokemon: function (name, id) {
+
         Promise.all([
             fetch("https://pokeapi.co/api/v2/" + "pokemon/" + name.toLowerCase()).then((response) => response.json()).then((data) => this.displayPokemon(data)),
-        ]);
+            fetchEvolutionChain(id)
+        ]).then(([pokemonResponse, evolutionChainData]) => {
+            const data = {
+                ...pokemonResponse,
+                evolutionChainData
+            };
+            
+            this.displayPokemon(data);
+        });
     },
 
     displayPokemon: async function (data) {
@@ -73,8 +113,6 @@ let pokemon = {
         } else {
             pokeTypeTwo.textContent = '';
         }
-
-        console.log(dataFirstType);
 
         mainCard.classList.add(dataFirstType['type']['name']);
 
@@ -109,6 +147,33 @@ let pokemon = {
         // Update HTML with weaknesses and strengths
         weakAgainst.textContent = `Weak Against: ${allWeaknesses.join(', ')}`;
         strongAgainst.textContent = `Strong Against: ${allStrengths.join(', ')}`;
+
+        const chainUrl = data.species.url;
+        const evolutionChainData = await fetch(chainUrl).then(response => response.json());
+    
+        const evolutionDetails = await getEvolutionDetails(evolutionChainData, name);
+
+        if (evolutionDetails) {
+            const evolutionLevel = evolutionDetails.min_level || evolutionDetails.min_happiness || '';
+            const evolvedPokemonName = evolutionDetails.species.name;
+
+            // Fetch and display the evolved Pokemon's image
+            const evolvedPokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${evolvedPokemonName}`);
+            const evolvedPokemonData = await evolvedPokemonResponse.json();
+            const evolvedPokemonImage = evolvedPokemonData.sprites.front_default;
+
+            // Update HTML with evolution details
+            document.querySelector(".evolution-info").innerHTML = `Evolves at level ${evolutionLevel}`;
+            document.querySelector(".evolution-image").src = evolvedPokemonImage;
+
+            // Show the evolution section
+            document.querySelector(".evolution-info").style.display = "block";
+            document.querySelector(".evolution-image").style.display = "block";
+        } else {
+            // If no evolution, hide the evolution section
+            document.querySelector(".evolution-info").style.display = "none";
+            document.querySelector(".evolution-image").style.display = "none";
+        }
 
         // Show the card after updating details
         mainCard.classList.remove('hide');
