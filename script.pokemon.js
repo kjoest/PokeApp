@@ -48,16 +48,30 @@ function convertWeightToPounds(weight) {
     return pounds.toFixed(2);
 }
 
+// // Function to fetch evolution chain data
+// async function fetchEvolutionChain(evolutionChainUrl) {
+//     try {
+//         const response = await fetch(evolutionChainUrl);
+//         const data = await response.json();
+//         return data;
+//     } catch (error) {
+//         console.error('Error fetching evolution chain data:', error);
+//         console.log('Response content: ', await response.text());
+//         throw error;
+//     }
+// }
+
 async function fetchEvolutionChain(id) {
-    const apiUrl = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    const evolutionChainUrl = data.evolution_chain.url;
-
-    const evolutionChainResponse = await fetch(evolutionChainUrl);
-    const evolutionChainData = await evolutionChainResponse.json();
-
-    return evolutionChainData;
+    const apiUrl = `https://pokeapi.co/api/v2/evolution-chain/${id}/`;
+    
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching evolution chain data:', error);
+        throw error;
+    }
 }
 
 // Function to get evolution details
@@ -148,9 +162,14 @@ let pokemon = {
         weakAgainst.textContent = `Weak Against: ${allWeaknesses.join(', ')}`;
         strongAgainst.textContent = `Strong Against: ${allStrengths.join(', ')}`;
 
-        const chainUrl = data.species.url;
-        const evolutionChainData = await fetch(chainUrl).then(response => response.json());
-    
+        // Show the card after updating details
+        mainCard.classList.remove('hide');
+
+        // const chainUrl = data.species.url;
+        // const evolutionChainData = await fetch(chainUrl).then(response => response.json());
+
+        const evolutionChainData = data.evolutionChainData;
+
         const evolutionDetails = await getEvolutionDetails(evolutionChainData, name);
 
         if (evolutionDetails) {
@@ -174,9 +193,6 @@ let pokemon = {
             document.querySelector(".evolution-info").style.display = "none";
             document.querySelector(".evolution-image").style.display = "none";
         }
-
-        // Show the card after updating details
-        mainCard.classList.remove('hide');
     },
 
     search: function () {

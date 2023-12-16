@@ -24,9 +24,7 @@ body {
 
 .card-content {
   min-height: 150%;
-
   max-height: 500px;
-
   overflow-y: auto;
 }
 
